@@ -37,8 +37,9 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#050A14] text-white">
       <Navbar />
-      {/* HERO */}
-      <section className="max-w-6xl mx-auto px-6 py-28 text-center">
+      
+      {/* HERO - Ajustado para max-w-7xl */}
+      <section className="max-w-7xl mx-auto px-6 py-28 text-center">
 
         <h1 className="text-5xl md:text-7xl font-semibold mt-6 leading-tight">
           Catálogo <span className="text-blue-500 italic">WMaker’s</span>
@@ -66,13 +67,14 @@ export default function Home() {
         </div>
 
       </section>
-      {/* CATEGORIAS */}
-      <div className="max-w-6xl mx-auto px-6">
+
+      {/* CATEGORIAS - Ajustado para max-w-7xl */}
+      <div className="max-w-7xl mx-auto px-6">
         <CategoriesSection />
       </div>
 
-      {/* PRODUTOS */}
-      <section className="max-w-6xl mx-auto px-6 pb-28">
+      {/* PRODUTOS - Ajustado para max-w-7xl e grid com xl:grid-cols-4 */}
+      <section className="max-w-7xl mx-auto px-6 pb-28">
 
         <div className="flex justify-between items-center mb-10">
 
@@ -90,7 +92,8 @@ export default function Home() {
 
         ) : (
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          /* Grid atualizada para dar mais espaço e alinhar até 4 itens */
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
 
             {products.map((product) => (
 
