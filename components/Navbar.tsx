@@ -28,7 +28,7 @@ export function Navbar() {
 
         {/* LINKS E BOTÕES DE NAVEGAÇÃO */}
         <nav className="flex items-center gap-6 sm:gap-10 text-sm text-blue-300">
-          <a href="#" className="hover:text-blue-400 transition-colors font-medium">
+          <a href="/contato" className="hover:text-blue-400 transition-colors font-medium">
             Contato
           </a>
           <a href="/admin/login" className="hover:text-blue-400 transition-colors font-medium">
