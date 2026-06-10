@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 
 import { useSearchParams } from "next/navigation"
 
@@ -11,8 +11,7 @@ import { ProductCard } from "@/components/ProductCard"
 import { CategoriesSection } from "@/components/CategoriesSection"
 import { Footer } from "@/components/Footer"
 
-export default function Home() {
-
+function HomeContent() {
   const searchParams = useSearchParams()
 
   const categoryId = searchParams.get("category")
@@ -166,3 +165,10 @@ export default function Home() {
   )
 }
 
+export default function Home() {
+  return (
+    <Suspense fallback={null}>
+      <HomeContent />
+    </Suspense>
+  )
+}
