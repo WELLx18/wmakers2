@@ -86,7 +86,7 @@ export default function DashboardPage() {
             </a>
 
             <a
-              href="/admin/categories"
+              href="/admin/categorias"
               className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 hover:border-white transition"
             >
 

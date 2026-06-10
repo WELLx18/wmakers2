@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { supabase } from "@/lib/supabase"
 
@@ -14,9 +14,46 @@ export default function AdminPage() {
   const [category, setCategory] = useState("")
   const [image, setImage] = useState<File | null>(null)
 
+  const [categories, setCategories] = useState<any[]>([])
+
+  // =========================
+  // LOAD CATEGORIES
+  // =========================
+  useEffect(() => {
+
+    async function loadCategories() {
+
+      const { data, error } = await supabase
+        .from("categories")
+        .select("*")
+        .order("name")
+
+      if (error) {
+        console.log(error)
+        return
+      }
+
+      setCategories(data || [])
+    }
+
+    loadCategories()
+
+  }, [])
+
   async function handleCreateProduct() {
 
     try {
+
+      // VALIDAÇÕES
+      if (!name || !description || !price) {
+        alert("Preencha todos os campos")
+        return
+      }
+
+      if (!category) {
+        alert("Selecione uma categoria")
+        return
+      }
 
       if (!image) {
         alert("Selecione uma imagem")
@@ -51,7 +88,7 @@ export default function AdminPage() {
           name,
           description,
           price: Number(price),
-          category,
+          category_id: category,
           image_url: imageUrl
         })
 
@@ -63,7 +100,7 @@ export default function AdminPage() {
 
       alert("Produto criado com sucesso!")
 
-      // Reset form
+      // RESET
       setName("")
       setDescription("")
       setPrice("")
@@ -94,7 +131,7 @@ export default function AdminPage() {
                 <span className="bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-full text-sm text-zinc-400">
                   Painel Administrativo
                 </span>
-                
+
                 <h1 className="text-5xl font-bold mt-6">
                   Criar Produto
                 </h1>
@@ -111,13 +148,13 @@ export default function AdminPage() {
               >
                 Ver Produtos
               </a>
-              <a
-                  href="/admin/dashboard"
-                  className="bg-white text-black px-6 py-4 rounded-2xl font-semibold"
-                >
-                  Voltar ao Dashboard
-                </a>
 
+              <a
+                href="/admin/dashboard"
+                className="bg-white text-black px-6 py-4 rounded-2xl font-semibold"
+              >
+                Voltar ao Dashboard
+              </a>
 
             </div>
 
@@ -185,13 +222,38 @@ export default function AdminPage() {
                   Categoria
                 </label>
 
-                <input
-                  type="text"
-                  placeholder="Ex: Geek"
+                <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full bg-zinc-950 border border-zinc-800 p-4 rounded-2xl outline-none focus:border-white transition"
-                />
+                  className="
+                    w-full
+                    bg-zinc-950
+                    border
+                    border-zinc-800
+                    p-4
+                    rounded-2xl
+                    outline-none
+                    focus:border-white
+                    transition
+                  "
+                >
+
+                  <option value="">
+                    Selecione uma categoria
+                  </option>
+
+                  {categories.map((cat) => (
+
+                    <option
+                      key={cat.id}
+                      value={cat.id}
+                    >
+                      {cat.name}
+                    </option>
+
+                  ))}
+
+                </select>
 
               </div>
 
